@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import { Button, Dialog } from 'react-native-elements';
+import AbilityDetailsScreen from'./AbilityDetailsScreen';
 
 const PokemonDetailsScreen = ({ route }) => {
     const { pokemon } = route.params;
+    const [visible, setVisible] = useState(false);
+    const [selectedAbilityUrl, setSelectedAbilityUrl] = useState('');
+
+    const toggleStuffs = (url ) => {
+        setSelectedAbilityUrl(url)
+        toggleDialog();
+    };
+
+    const toggleDialog = (url ) => {
+        setVisible(!visible);
+    };
 
     return (
         <ScrollView>
@@ -22,7 +35,8 @@ const PokemonDetailsScreen = ({ route }) => {
                         <Text style={styles.infoLabel}>Habilidades:</Text>
                         <View style={styles.abilitiesContainer}>
                             {pokemon.abilities.map((ability, index) => (
-                                <Text key={index} style={styles.ability}>{ability.ability.name}</Text>
+                                <Button style={styles.ability} key={index} title={ability.ability.name} onPress={() => toggleStuffs(ability.ability.url)}/>
+                                // <Text key={index} style={styles.ability}>{ability.ability.name}</Text>
                             ))}
                         </View>
                     </View>
@@ -36,6 +50,11 @@ const PokemonDetailsScreen = ({ route }) => {
                     </View>
                 </View>
             </View>
+            <AbilityDetailsScreen
+                visible={visible}
+                abilityUrl={selectedAbilityUrl}
+                toggleDialog={toggleDialog}
+                ></AbilityDetailsScreen>
         </ScrollView>
     );
 };
@@ -80,13 +99,12 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     ability: {
-        backgroundColor: '#DDD',
-        paddingHorizontal: 10,
-        paddingVertical: 5,
+        paddingHorizontal: 2,
+        paddingVertical: 2,
         borderRadius: 20,
-        marginHorizontal: 5,
-        marginVertical: 3,
-        fontSize: 14,
+        marginHorizontal: 2,
+        marginVertical: 2,
+        fontSize: 10,
         fontWeight: 'bold'
     },
     typesContainer: {

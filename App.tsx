@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PokemonList from './components/PokemonList';
 import PokemonDetails from './components/PokemonDetailsScreen';
+import { Button } from 'react-native-elements';
 
 const Stack = createStackNavigator();
 
@@ -14,10 +15,13 @@ const HomeScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={{ fontSize: 24, marginTop: 10 }}>Bem-vindo ao meu app</Text>
-            <Text style={{ fontSize: 15, marginTop: 10 }}>Nesse aplicativo, foi utilizado a API: https://pokeapi.co/</Text>
-            <TouchableOpacity onPress={handlePress} style={styles.button}>
-                <Text style={styles.buttonText}>Ver Pokemons</Text>
-            </TouchableOpacity>
+            <Text style={{ fontSize: 15, marginTop: 10, marginBottom: 30 }}>Nesse aplicativo, foi utilizado a API: https://pokeapi.co/</Text>
+            <Button
+                title="Ver Pokemons"
+                buttonStyle={{ backgroundColor: '#007AFF', borderRadius: 10 }}
+                onPress={handlePress}
+                titleStyle={{ fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase' }}
+            />
         </View>
     );
 };
